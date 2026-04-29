@@ -1,0 +1,11 @@
+# Entornos virtuales
+.venv/
+
+# Resultados de Robot Framework
+resultados/
+log.html
+report.html
+output.xml
+
+# Archivos de PyCharm
+.idea/
