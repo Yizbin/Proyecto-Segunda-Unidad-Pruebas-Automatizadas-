@@ -7,18 +7,14 @@ Suite Setup       Abrir Navegador Principal
 Suite Teardown    Cerrar Navegador Principal
 
 *** Test Cases ***
-Remover Elemento Dinamico
-    [Documentation]    Valida que el checkbox sea removido del DOM tras hacer clic en Remove[cite: 60, 61].
-    [Tags]             dinamico    ui
+Validar Eliminacion De Checkbox
+    [Tags]             controles    dinamicos
+    Ir A Controles Dinamicos
+    Eliminar Checkbox
+    Comprobar Checkbox Eliminado
 
-    Navegar A Pagina Controles Dinamicos
-    Hacer Clic En Remover
-    Verificar Checkbox Removido
-
-Habilitar Input Dinamico
-    [Documentation]    Valida que el campo de texto se habilite para escritura tras hacer clic en Enable[cite: 62, 63].
-    [Tags]             dinamico    ui
-
-    Navegar A Pagina Controles Dinamicos
-    Hacer Clic En Habilitar
-    Verificar Input Habilitado
+Validar Activacion De Campo Texto
+    [Tags]             controles    dinamicos
+    Ir A Controles Dinamicos
+    Activar Campo Texto
+    Confirmar Campo Disponible

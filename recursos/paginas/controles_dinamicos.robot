@@ -3,27 +3,32 @@ Library    SeleniumLibrary
 Resource   ../base.robot
 
 *** Variables ***
-${URL_DINAMICOS}     ${URL_BASE}/dynamic_controls
-${BTN_REMOVE}        xpath=//button[text()='Remove']
-${BTN_ENABLE}        xpath=//button[text()='Enable']
-${CHECKBOX_DIV}      id=checkbox
-${INPUT_TEXTO}       xpath=//form[@id='input-example']/input
-${MENSAJE_CARGA}     id=loading
+${PAGINA_CONTROLES}    ${URL_BASE}/dynamic_controls
+${BOTON_ELIMINAR}      xpath=//button[text()='Remove']
+${BOTON_HABILITAR}     xpath=//button[text()='Enable']
+${AREA_CHECKBOX}       id=checkbox
+${CAMPO_ENTRADA}       xpath=//form[@id='input-example']/input
+${INDICADOR_CARGA}     id=loading
 
 *** Keywords ***
-Navegar A Pagina Controles Dinamicos
-    Go To    ${URL_DINAMICOS}
+Ir A Controles Dinamicos
+    Go To    ${PAGINA_CONTROLES}
 
-Hacer Clic En Remover
-    Click Button    ${BTN_REMOVE}
-    Wait Until Element Is Not Visible    ${MENSAJE_CARGA}
+Eliminar Checkbox
+    Presionar Boton Y Esperar    ${BOTON_ELIMINAR}
 
-Verificar Checkbox Removido
-    Page Should Not Contain Element    ${CHECKBOX_DIV}
+Comprobar Checkbox Eliminado
+    Wait Until Element Is Not Visible    ${AREA_CHECKBOX}
+    Element Should Not Be Visible        ${AREA_CHECKBOX}
 
-Hacer Clic En Habilitar
-    Click Button    ${BTN_ENABLE}
-    Wait Until Element Is Not Visible    ${MENSAJE_CARGA}
+Activar Campo Texto
+    Presionar Boton Y Esperar    ${BOTON_HABILITAR}
 
-Verificar Input Habilitado
-    Element Should Be Enabled    ${INPUT_TEXTO}
+Confirmar Campo Disponible
+    Element Should Be Enabled    ${CAMPO_ENTRADA}
+
+Presionar Boton Y Esperar
+    [Arguments]    ${boton}
+    Click Button    ${boton}
+    Wait Until Element Is Visible        ${INDICADOR_CARGA}    timeout=5s
+    Wait Until Element Is Not Visible    ${INDICADOR_CARGA}    timeout=10s
