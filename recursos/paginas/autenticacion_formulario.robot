@@ -30,4 +30,6 @@ Hacer Clic En Logout
 
 Verificar Mensaje De Alerta
     [Arguments]    ${mensaje_esperado}
+    # Le damos hasta 5 segundos al navegador para que renderice el elemento
+    Wait Until Element Is Visible    ${MENSAJE_FLASH}    timeout=5s
     Element Should Contain    ${MENSAJE_FLASH}    ${mensaje_esperado}
