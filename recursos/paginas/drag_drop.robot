@@ -1,25 +1,20 @@
 *** Settings ***
-Library    SeleniumLibrary
-Resource   ../base.robot
+Documentation    Palabras clave y localizadores para interactuar con la página de Drag and Drop (Arrastrar y Soltar).
+Library          SeleniumLibrary
 
 *** Variables ***
-${URL_DRAG_DROP}    ${URL_BASE}/drag_and_drop
-${CAJA_A}           id=column-a
-${CAJA_B}           id=column-b
-${HEADER_A}         css=#column-a header
-${HEADER_B}         css=#column-b header
+${CAJA_A}    id=column-a
+${CAJA_B}    id=column-b
 
 *** Keywords ***
-Navegar A Pagina Drag And Drop
-    Go To    ${URL_DRAG_DROP}
+Arrastrar Caja Hacia
+    [Documentation]    Simula la acción de hacer clic sostenido sobre un elemento origen, arrastrarlo y soltarlo sobre un elemento destino.
+    [Arguments]    ${origen}    ${destino}
+    Drag And Drop    ${origen}    ${destino}
+    Sleep    1s
 
-Arrastrar Caja A Hacia Caja B
-    Drag And Drop    ${CAJA_A}    ${CAJA_B}
-
-Arrastrar Caja B Hacia Caja A
-    Drag And Drop    ${CAJA_B}    ${CAJA_A}
-
-Verificar Intercambio De Cajas
-    [Arguments]    ${texto_esperado_en_A}
-    ${texto_actual}=    Get Text    ${HEADER_A}
-    Should Be Equal    ${texto_actual}    ${texto_esperado_en_A}
+Validar Orden De Las Cajas
+    [Documentation]    Comprueba que el texto dentro de las cabeceras (headers) de las columnas A y B corresponda al orden esperado.
+    [Arguments]    ${texto_caja_izq}    ${texto_caja_der}
+    Element Text Should Be    css=#column-a header    ${texto_caja_izq}
+    Element Text Should Be    css=#column-b header    ${texto_caja_der}
