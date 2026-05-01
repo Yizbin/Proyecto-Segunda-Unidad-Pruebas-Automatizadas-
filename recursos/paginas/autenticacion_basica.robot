@@ -1,18 +1,25 @@
 *** Settings ***
-Library    SeleniumLibrary
-Resource   ../base.robot
+Documentation     Pruebas de Autenticación Básica en Herokuapp
+Library           SeleniumLibrary
 
 *** Variables ***
-${DOMINIO_AUTH}       the-internet.herokuapp.com/basic_auth
-${MENSAJE_EXITO}      Congratulations! You must have the proper credentials.
+${BROWSER}        chrome
+${URL}            the-internet.herokuapp.com/basic_auth
+${VALID_USER}     admin
+${VALID_PASS}     admin
+${INVALID_USER}   admin1
+${INVALID_PASS}   admin1
 
-*** Keywords ***
-Ingresar Con Credenciales Basicas
-    [Arguments]    ${usuario}    ${password}
-    Go To    https://${usuario}:${password}@${DOMINIO_AUTH}
+*** Test Cases ***
+Escenario 1: Log in con credenciales válidas
+    [Documentation]    Valida que el acceso sea exitoso usando admin:admin
 
-Verificar Autenticacion Exitosa
-    Page Should Contain    ${MENSAJE_EXITO}
+    Open Browser    https://${VALID_USER}:${VALID_PASS}@${URL}    ${BROWSER}
+    Element Should Contain    tag=p    Congratulations! You must have the proper credentials.
+    [Teardown]    Close Browser
 
-Verificar Autenticacion Fallida
-    Page Should Not Contain    ${MENSAJE_EXITO}
+Escenario 2: Log in con credenciales inválidas
+    [Documentation]    Valida que la autenticación falle con credenciales erróneas
+
+    Open Browser    https://${INVALID_USER}:${INVALID_PASS}@${URL}    ${BROWSER}
+    Page Should Not Contain    Congratulations!
